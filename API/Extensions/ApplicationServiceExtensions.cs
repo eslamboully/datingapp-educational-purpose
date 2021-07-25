@@ -1,3 +1,4 @@
+using System;
 using API.Data;
 using API.Helpers;
 using API.Interfaces;
@@ -5,6 +6,7 @@ using API.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace API.Extensions
 {
@@ -17,7 +19,7 @@ namespace API.Extensions
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddDbContext<DataContext>(options =>
             {
-                options.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+                options.UseSqlServer(config.GetConnectionString("DefaultConnection")).LogTo(Console.WriteLine,LogLevel.Information);
             });
 
             return services;
