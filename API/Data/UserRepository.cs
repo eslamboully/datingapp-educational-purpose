@@ -40,26 +40,26 @@ namespace API.Data
             return await _context.Users.FindAsync(id);
         }
 
-        async Task<AppUser> IUserRepository.GetUserByUserNameAsync(string username)
+        public async Task<AppUser> GetUserByUserNameAsync(string username)
         {
             return await _context.Users
             .Include(p => p.Photos)
             .SingleOrDefaultAsync(x => x.UserName == username);
         }
 
-        async Task<IEnumerable<AppUser>> IUserRepository.GetUsersAsync()
+        public async Task<IEnumerable<AppUser>> GetUsersAsync()
         {
             return await _context.Users
             .Include(p => p.Photos)
             .ToListAsync();
         }
 
-        async Task<bool> IUserRepository.SaveAllAsync()
+        public async Task<bool> SaveAllAsync()
         {
             return await _context.SaveChangesAsync() > 0;
         }
 
-        void IUserRepository.Update(AppUser user)
+        public void Update(AppUser user)
         {
             _context.Entry(user).State = EntityState.Modified;
         }
